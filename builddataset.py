@@ -1,4 +1,4 @@
-#This file downloads, parses, cleans, and saves a dataset of over 500 basketball games for further analysis
+#This file downloads, cleans, and saves a dataset of over 500 basketball games for further analysis
 import pandas as pd
 import numpy as np
 from sportsreference.nba.teams import Teams
@@ -39,8 +39,6 @@ dataset = (rawdataset
     #if I scaled all of these, together between 0 and 1, I won't have done anything useful,
     #I'm trying to reduce bias towards features that tend to have larger numbers
     .apply(lambda x:(x.astype(float) - min(x))/(max(x)-min(x)), axis = 0)
-    #some of the models have trouble with float64 numbers 
-    .astype(np.float32)
     #Some rows will now only contain NaN/Inf because of the previous scaling and resizing operations, so I need to replace all those values with 0
     .fillna(0)
 )
