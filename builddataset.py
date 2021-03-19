@@ -46,3 +46,9 @@ dataset = (rawdataset
 X = dataset.drop(['away_points', 'home_points'], 1)
 y = dataset[['home_points', 'away_points']].values
 X_train, X_test, y_train, y_test = train_test_split(X, y)
+
+#Remember, all of my features are scaled independently of each other! Let's add a function to fix that when I present my results!
+def inverse_scale(column, original_index_name):
+    array_max = max(rawdataset[original_index_name])
+    array_min = min(rawdataset[original_index_name])
+    return column * (array_max - array_min) + array_min
