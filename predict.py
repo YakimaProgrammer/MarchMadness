@@ -1,3 +1,4 @@
+#This code is inspired by an article by Robert Clark. You can read his article at https://towardsdatascience.com/predict-college-basketball-scores-in-30-lines-of-python-148f6bd71894
 from builddataset import X_train, X_test, y_train, y_test, inverse_scale
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
