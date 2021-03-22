@@ -41,3 +41,16 @@ prediction_correct = [p == r for p,r in zip(predicted_winner, actual_winner)]
 
 #Print the accuracy of determining the winner
 print(f"Accuracy when determining the winner: {round(sum(prediction_correct)/len(results),4)*100}%")
+
+#Now let's see how far off the model is from the actual score
+
+#Please never use list comprehension like this
+#               [1]                                          [2]                                         [3]                         [4]                    [5]                 
+absolute_diff = [score for score_tuple in [(abs(home_p - home_r),abs(away_p - away_r)) for (home_p,away_p),(home_r,away_r) in zip(results,y_test)] for score in score_tuple]
+#[1] return the reasult
+#[2] calculate the difference between the (p)rediction and the (r)eal value
+#[3] doubly-nested unpacking of the predicted and actual game scores
+#[4] zip the predicted and actual game scores together so I can unpack them easier
+#[5] Flatten the list because I'm returning a tuple.
+
+print(f"Average absolute deviation from the real score: {round(sum(absolute_diff)/len(absolute_diff),2)}%")
