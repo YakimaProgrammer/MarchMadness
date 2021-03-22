@@ -48,7 +48,7 @@ dataset = (rawdataset
 
 def build_train_test_split(drop, predict):
     X = dataset.drop(drop, 1)
-    y = dataset[].values
+    y = dataset[predict].values
     #X_train, X_test, y_train, y_test = train_test_split(X, y)
     return train_test_split(X,y)
 
