@@ -6,7 +6,14 @@ import pandas
 
 X_train, X_test, y_train, y_test = build_train_test_split(["home_points","away_points","home_won"], ["home_won"])
 
-model = RandomForestClassifier(n_estimators=50)
+parameters = {'bootstrap': False,
+              'min_samples_leaf': 3,
+              'n_estimators': 50,
+              'min_samples_split': 10,
+              'max_features': 'sqrt',
+              'max_depth': 6}
+
+model = RandomForestClassifier(**parameters)
 model.fit(X_train, y_train[:, 0])
 
 results = model.predict_proba(X_test)
