@@ -1,19 +1,18 @@
 #This code is inspired by an article by Robert Clark. You can read his article at https://towardsdatascience.com/predict-college-basketball-scores-in-30-lines-of-python-148f6bd71894
 from builddataset import build_train_test_split, inverse_scale
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
 import pandas
 
 X_train, X_test, y_train, y_test = build_train_test_split(["home_points","away_points","home_won"], ["home_won"])
 
-parameters = {'bootstrap': False,
-              'min_samples_leaf': 3,
-              'n_estimators': 50,
-              'min_samples_split': 10,
-              'max_features': 'sqrt',
-              'max_depth': 6}
+parameters = {'activation': 'logistic',
+              'solver': 'lbfgs',
+              'hidden_layer_sizes': (100, 150, 75),
+              #'max_iter': any_positive_integer #default: 200
+              }
 
-model = RandomForestClassifier(**parameters)
+model = MLPClassifier(**parameters)
 model.fit(X_train, y_train[:, 0])
 
 results = model.predict_proba(X_test)
