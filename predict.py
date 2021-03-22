@@ -17,31 +17,5 @@ parameters = {'activation': ['identity', 'logistic', 'tanh', 'relu'],
               }
 
 model = MLPClassifier()
-
-#clf = GridSearchCV(model, parameters, n_jobs=-1, verbose = 3)
-clf = RandomizedSearchCV(model, parameters, n_jobs=-1, verbose = 3, n_iter = 250)
-
-clf.fit(X_train, y_train)
-raise Exception
-
-model.fit(X_train, y_train[:, 0])
-
-results = model.predict_proba(X_test)
-
-results[:,[1, 0]] = results[:,[0, 1]]
-
-#Let's convert y_test into a one dimentional array so that it can be more easily used to validate the results!
-y_test = y_test[:, 0]
-
-df = pandas.DataFrame()
-df["actual_winner"] = ["Home" if winner else "Away" for winner in y_test]
-df["predicted_winner"] = ["Home" if winner[0] > winner[1] else "Away" for winner in results]
-df["home_winning_chance"] = results[:, 0]
-df["away_winning_chance"] = results[:, 1]
-
-with pandas.option_context('display.max_rows', None, 'display.max_columns', None):
-    print(df)
-
-
-predicted_winner = (results[:, 0] > results[:, 1]).astype(int)
-print(f"Accuracy when determining the winner: {round(sum(y_test == predicted_winner)/len(predicted_winner),4)*100}%")
+clf = RandomizedSearchCV(model, parameters, n_jobs=-1, verbose = 3, n_iter = 5)
+clf.fit(X_train, y_train[:, 0])
