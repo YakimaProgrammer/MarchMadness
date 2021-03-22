@@ -6,11 +6,11 @@ import pandas
 
 X_train, X_test, y_train, y_test = build_train_test_split(["home_points","away_points","home_won"], ["home_won"])
 
-parameters = {'activation': 'logistic',
-              'solver': 'lbfgs',
-              'hidden_layer_sizes': (100, 150, 75),
-              #'max_iter': any_positive_integer #default: 200
-              }
+parameters = {'activation': 'tanh',
+              'hidden_layer_sizes': (80, 100, 80),
+              'learning_rate': 'adaptive',
+              'max_iter': 1400,
+              'solver': 'sgd'}
 
 model = MLPClassifier(**parameters)
 model.fit(X_train, y_train[:, 0])
