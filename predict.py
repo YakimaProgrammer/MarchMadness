@@ -15,23 +15,16 @@ parameters = {'activation': 'tanh',
 model = MLPClassifier(**parameters)
 model.fit(X_train, y_train[:, 0])
 
-results = model.predict_proba(X_test)
-
-#predict_proba returns an array of [away, home] probabilities, but my code below expects an array of [home, away]
-results[:,[1, 0]] = results[:,[0, 1]]
+results = model.predict(X_test)
 
 #Let's convert y_test into a one dimentional array so that it can be more easily used to validate the results!
 y_test = y_test[:, 0]
 
 df = pandas.DataFrame()
 df["actual_winner"] = ["Home" if winner else "Away" for winner in y_test]
-df["predicted_winner"] = ["Home" if winner[0] > winner[1] else "Away" for winner in results]
-df["home_winning_chance"] = results[:, 0]
-df["away_winning_chance"] = results[:, 1]
+df["predicted_winner"] = ["Home" if winner else "Away" for winner in results]
 
 with pandas.option_context('display.max_rows', None, 'display.max_columns', None):
     print(df)
 
-
-predicted_winner = (results[:, 0] > results[:, 1]).astype(int)
-print(f"Accuracy when determining the winner: {round(sum(y_test == predicted_winner)/len(predicted_winner),4)*100}%")
+print(f"Accuracy when determining the winner: {round(sum(y_test == results)/len(results),4)*100}%")
