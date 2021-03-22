@@ -18,6 +18,8 @@ model.fit(X_train, y_train[:, 0])
 
 results = model.predict_proba(X_test)
 
+results[:,[1, 0]] = results[:,[0, 1]]
+
 #Let's convert y_test into a one dimentional array so that it can be more easily used to validate the results!
 y_test = y_test[:, 0]
 
