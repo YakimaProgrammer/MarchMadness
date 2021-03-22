@@ -53,4 +53,4 @@ absolute_diff = [score for score_tuple in [(abs(home_p - home_r),abs(away_p - aw
 #[4] zip the predicted and actual game scores together so I can unpack them easier
 #[5] Flatten the list because I'm returning a tuple.
 
-print(f"Average absolute deviation from the real score: {round(sum(absolute_diff)/len(absolute_diff),2)}%")
+print(f"Average absolute deviation from the real score: {round(sum(absolute_diff)/len(absolute_diff),2)}")
