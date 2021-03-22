@@ -1,7 +1,9 @@
 #This code is inspired by an article by Robert Clark. You can read his article at https://towardsdatascience.com/predict-college-basketball-scores-in-30-lines-of-python-148f6bd71894
-from builddataset import X_train, X_test, y_train, y_test, inverse_scale
+from builddataset import build_train_test_split, inverse_scale
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = build_train_test_split(["home_points","away_points","home_won"], ["home_won"])
 
 parameters = {'bootstrap': False,
               'min_samples_leaf': 3,
@@ -9,6 +11,7 @@ parameters = {'bootstrap': False,
               'min_samples_split': 10,
               'max_features': 'sqrt',
               'max_depth': 6}
+
 model = RandomForestRegressor(**parameters)
 model.fit(X_train, y_train)
 results = model.predict(X_test)
