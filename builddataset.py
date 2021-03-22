@@ -28,6 +28,9 @@ except FileNotFoundError:
 ##So, let's fix that!
 rawdataset["away_points"] -= rawdataset["home_points"]
 
+#Let's also make a series to determine if the home team won or not
+rawdataset["home_won"] = (rawdataset["home_points"] > rawdataset["away_points"]).astype(int)
+
 dataset = (rawdataset
     #remove rows with null values
     .dropna()
@@ -43,9 +46,11 @@ dataset = (rawdataset
     .fillna(0)
 )
 
-X = dataset.drop(['away_points', 'home_points'], 1)
-y = dataset[['home_points', 'away_points']].values
-X_train, X_test, y_train, y_test = train_test_split(X, y)
+def build_train_test_split(drop, predict):
+    X = dataset.drop(drop, 1)
+    y = dataset[predict].values
+    #X_train, X_test, y_train, y_test = train_test_split(X, y)
+    return train_test_split(X,y)
 
 #Remember, all of my features are scaled independently of each other! Let's add a function to fix that when I present my results!
 def inverse_scale(column, original_index_name):
