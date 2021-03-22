@@ -1,6 +1,6 @@
 #This code is inspired by an article by Robert Clark. You can read his article at https://towardsdatascience.com/predict-college-basketball-scores-in-30-lines-of-python-148f6bd71894
 from builddataset import build_train_test_split, inverse_scale
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = build_train_test_split(["home_points","away_points","home_won"], ["home_won"])
@@ -12,17 +12,15 @@ parameters = {'bootstrap': False,
               'max_features': 'sqrt',
               'max_depth': 6}
 
-model = RandomForestRegressor(**parameters)
+model = RandomForestClassifier(**parameters)
 model.fit(X_train, y_train)
 results = model.predict(X_test)
 
-results = zip(inverse_scale(results[:,0],'home_points'),inverse_scale(results[:,1],'away_points'))
-y_test = zip(inverse_scale(y_test[:,0],'home_points'),inverse_scale(y_test[:,1],'away_points'))
+#Let's convert y_test into a one dimentional array so that it can be more easily used to validate the results!
+y_test = y_test[:, 0]
 
-print("Predicted: Home\tAway\tActual: Home\tAway")
-winloss = []
+print("Predicted winner:\tActual:")
 for prediction,real in zip(results, y_test):
-    winloss.append([[prediction[0] > prediction[1]],[real[0] > real[1]]])
-    print("\t", round(prediction[0],3), "   \t", round(prediction[1],3), "  \t\t", round(real[0],3), "  \t", round(real[1],3))
+    print("\t\t","Home" if prediction else "Away","\t","Home" if real else "Away")
     
-print(f"Accuracy when determining the winner: {round(sum(p==r for p,r in winloss)/len(winloss),4)*100}%")
+print(f"Accuracy when determining the winner: {round(sum(results == y_test)/len(results),4)*100}%")
