@@ -19,3 +19,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+The file, 'rawdataset.csv' is a collection of datapoints scraped from the website 'https://www.sports-reference.com/'. Additional rules, laws or other legal aspects may limit your usage and distribution of this data. For more information, review the aforementioned website. This data is provided as a convenience as downloading and assimilating the data manually can take several minutes. The author of this program, Magnus Fulton, makes no warrants, express or implied, as to the accuracy or suitability of the data provided. The data contained in the aforementioned file is excluded from the MIT licensing of this program and is instead bound by the licensing of the respective owner(s). 
